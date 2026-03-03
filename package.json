@@ -92,7 +92,6 @@
     "@graphql-codegen/cli": "5.0.7",
     "@graphql-codegen/introspection": "4.0.3",
     "@iarna/toml": "2.2.5",
-    "@remix-run/eslint-config": "2.16.8",
     "@shopify-internal/graphql-testing": "8.2.2",
     "@shopify/eslint-plugin": "50.0.0",
     "@testing-library/jest-dom": "6.6.3",
