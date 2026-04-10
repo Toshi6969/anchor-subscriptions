@@ -1,0 +1,11 @@
+name = "remix"
+roles = ["frontend", "backend"]
+webhooks_path = "/webhooks/cli"
+
+{%- assign exec = dependency_manager | append: ' exec' -%}
+{%- if dependency_manager == 'yarn' -%}
+{%- assign exec = 'yarn' -%}
+{%- endif %}
+[commands]
+predev = "{{ exec }} dotenv -c development npm run setup"
+dev = "{{ exec }} remix vite:dev"
