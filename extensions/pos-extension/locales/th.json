@@ -7,10 +7,6 @@
         "plural": "มีการสมัครใช้งานพร้อมใช้งานสำหรับ {{count}} รายการ",
         "none": "ไม่มีการสมัครใช้งานที่ใช้ได้"
       }
-    },
-    "unavailable": {
-      "title": "Subscriptions ไม่พร้อมใช้งาน",
-      "subtitle": "ต้องใช้ POS {{version}} ขึ้นไป"
     }
   },
   "ElegibleLineItems": {

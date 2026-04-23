@@ -7,10 +7,6 @@
         "singular": "Abonnement tilgængeligt for {{count}} vare",
         "plural": "Abonnement tilgængeligt for {{count}} varer"
       }
-    },
-    "unavailable": {
-      "title": "Subscriptions er ikke tilgængeligt",
-      "subtitle": "Kræver POS {{version}}+"
     }
   },
   "ElegibleLineItems": {

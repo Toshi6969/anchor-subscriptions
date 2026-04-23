@@ -7,10 +7,6 @@
         "singular": "訂閱適用於 {{count}} 個品項",
         "plural": "訂閱適用於 {{count}} 個品項"
       }
-    },
-    "unavailable": {
-      "title": "Subscriptions 無法使用",
-      "subtitle": "需要 POS 版本 {{version}} 或以上"
     }
   },
   "ElegibleLineItems": {

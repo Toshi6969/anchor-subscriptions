@@ -7,10 +7,6 @@
         "singular": "Toistuva tilaus saatavilla {{count}} tuotteelle",
         "plural": "Toistuva tilaus saatavilla {{count}} tuotteelle"
       }
-    },
-    "unavailable": {
-      "title": "Subscriptions ei saatavilla",
-      "subtitle": "Vaatii POS-version {{version}} tai uudemman"
     }
   },
   "ElegibleLineItems": {

@@ -7,10 +7,6 @@
         "singular": "Assinatura disponível para {{count}} item",
         "plural": "Assinatura disponível para {{count}} itens"
       }
-    },
-    "unavailable": {
-      "title": "Subscriptions indisponível",
-      "subtitle": "Requer o POS {{version}}+"
     }
   },
   "ElegibleLineItems": {

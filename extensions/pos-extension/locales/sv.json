@@ -7,10 +7,6 @@
         "singular": "Prenumeration tillgänglig för {{count}} artikel",
         "plural": "Prenumeration tillgänglig för {{count}} artiklar"
       }
-    },
-    "unavailable": {
-      "title": "Subscriptions otillgängliga",
-      "subtitle": "Kräver Kassasystem {{version}}+"
     }
   },
   "ElegibleLineItems": {

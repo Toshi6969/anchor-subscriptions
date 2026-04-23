@@ -7,10 +7,6 @@
         "singular": "可订阅 {{count}} 件商品",
         "plural": "可订阅 {{count}} 件商品"
       }
-    },
-    "unavailable": {
-      "title": "订阅不可用",
-      "subtitle": "需要 POS {{version}} 及以上版本"
     }
   },
   "ElegibleLineItems": {

@@ -7,10 +7,6 @@
         "singular": "{{count}}개 항목 구독 가능",
         "plural": "{{count}}개 항목 구독 가능"
       }
-    },
-    "unavailable": {
-      "title": "Subscriptions 사용 불가",
-      "subtitle": "POS 버전 {{version}} 이상 필요"
     }
   },
   "ElegibleLineItems": {

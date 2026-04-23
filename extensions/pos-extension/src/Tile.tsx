@@ -5,11 +5,7 @@ import i18n from './i18n/config';
 
 const TileComponent = () => {
   const {title, subtitle, enabled, disabledReason, onCartChange} =
-    useSellingPlanTile(
-      shopify.cart.current.value,
-      i18n,
-      shopify.session.currentSession.posVersion,
-    );
+    useSellingPlanTile(shopify.cart.current.value, i18n);
 
   shopify.cart.current.subscribe((cart) => {
     onCartChange(cart);

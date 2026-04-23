@@ -7,10 +7,6 @@
         "singular": "{{count}}アイテムのサブスクリプションを利用できます",
         "plural": "{{count}}アイテムのサブスクリプションを利用できます"
       }
-    },
-    "unavailable": {
-      "title": "サブスクリプション利用不可",
-      "subtitle": "POS {{version}}以上が必要です"
     }
   },
   "ElegibleLineItems": {

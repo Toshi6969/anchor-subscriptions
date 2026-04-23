@@ -7,10 +7,6 @@
         "singular": "Subscrição disponível para {{count}} item",
         "plural": "Subscrição disponível para {{count}} itens"
       }
-    },
-    "unavailable": {
-      "title": "Subscrições indisponíveis",
-      "subtitle": "Requer POS {{version}}+"
     }
   },
   "ElegibleLineItems": {

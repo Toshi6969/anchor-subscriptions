@@ -7,10 +7,6 @@
         "singular": "{{count}} ürün için abonelik mevcut",
         "plural": "{{count}} ürün için abonelik mevcut"
       }
-    },
-    "unavailable": {
-      "title": "Subscriptions kullanılamıyor",
-      "subtitle": "POS {{version}}+ sürümü gerekir"
     }
   },
   "ElegibleLineItems": {

@@ -7,10 +7,6 @@
         "singular": "U {{count}} položky je k dispozici předplatné",
         "plural": "U  položek ({{count}}) je k dispozici předplatné"
       }
-    },
-    "unavailable": {
-      "title": "Subscriptions není k dispozici",
-      "subtitle": "Vyžaduje POS ve verzi {{version}} a novější"
     }
   },
   "ElegibleLineItems": {

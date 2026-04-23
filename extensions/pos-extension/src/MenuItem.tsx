@@ -1,27 +1,15 @@
 import {render} from 'preact';
 import I18nProvider from './components/I18nProvider';
-import {MINIMUM_VERSION_SUPPORTED} from './constants/constants';
-import {isVersionSupported} from './utils/versionComparison';
 
 const ButtonComponent = () => {
   const handleButtonPress = () => {
     shopify.action.presentModal();
   };
 
-  // Remove this once v10.13.0 is no longer supported
-  const versionSupported = isVersionSupported(
-    shopify.session.currentSession.posVersion,
-    MINIMUM_VERSION_SUPPORTED,
-  );
-
   const hasSellingPlanGroups = shopify.cartLineItem?.hasSellingPlanGroups;
-  const enabled = hasSellingPlanGroups && versionSupported;
+  const enabled = Boolean(hasSellingPlanGroups);
 
-  const disabledReason = !versionSupported
-    ? 'version-unsupported'
-    : !hasSellingPlanGroups
-      ? 'feature-disabled'
-      : null;
+  const disabledReason = !hasSellingPlanGroups ? 'feature-disabled' : null;
 
   return (
     <s-button
