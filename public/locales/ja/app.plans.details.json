@@ -52,7 +52,11 @@
     },
     "addOption": "オプションを追加する",
     "removeOption": "オプションを削除する",
-    "discountValueFixedPriceHelpText": "この価格はお客様に表示されます"
+    "discountValueFixedPriceHelpText": "この価格はお客様に表示されます",
+    "anchorDayHelpText": "契約者全員に対して、毎月固定のサイクル日（注文作成・請求日）を設定します。空欄の場合は各契約日を基準に動きます。※実際の物流発送日はフルフィルメント運用側で別途スケジュール可能です（Shopifyの仕様上、請求と配達のアンカー日は同一である必要があります）。",
+    "anchorDay": "毎月のサイクル日",
+    "anchorDayFieldHelpText": "1〜31",
+    "anchorDaySuffix": "日"
   },
   "deleteButtonText": "削除",
   "deleteSellingPlanGroupModal": {

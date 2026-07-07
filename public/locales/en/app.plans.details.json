@@ -54,7 +54,11 @@
     },
     "discountValueFixedPriceHelpText": "This will be the price displayed to customers",
     "addOption": "Add option",
-    "removeOption": "Remove option"
+    "removeOption": "Remove option",
+    "anchorDayHelpText": "Set a fixed monthly cycle day for all subscribers. Orders are created and billed on this day. Leave blank to use each subscriber's signup date. (Shopify requires billing and delivery to share the same anchor day; physical shipping timing is handled by your fulfillment process separately.)",
+    "anchorDay": "Monthly cycle day",
+    "anchorDayFieldHelpText": "1–31",
+    "anchorDaySuffix": "of the month"
   },
   "deleteSellingPlanGroupModal": {
     "title": "Delete subscription plan?",

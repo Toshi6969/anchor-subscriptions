@@ -22,6 +22,7 @@ export const defaultDiscountDeliveryOption = {
   deliveryFrequency: 1,
   deliveryInterval: DeliveryFrequencyInterval.Week,
   discountValue: undefined,
+  anchorDay: undefined,
 };
 
 /**
@@ -145,6 +146,7 @@ export function getSellingPlansFromDiscountDeliveryOptions(
       deliveryFrequency: deliveryFrequencyString,
       deliveryInterval,
       discountValue,
+      anchorDay,
     }) => {
       const deliveryFrequency = Number(deliveryFrequencyString);
 
@@ -162,6 +164,14 @@ export function getSellingPlansFromDiscountDeliveryOptions(
         interval: deliveryInterval as SellingPlanInterval,
         intervalCount: deliveryFrequency,
       };
+
+      // Anchors only apply when interval is MONTH. Shopify requires billing
+      // and delivery anchors to match, so a single anchorDay drives both.
+      const isMonthly = deliveryInterval === DeliveryFrequencyInterval.Month;
+      const anchors =
+        isMonthly && anchorDay
+          ? {anchors: [{day: anchorDay, type: 'MONTHDAY'}]}
+          : {};
 
       const adjustmentValue =
         discountType === DiscountType.PERCENTAGE
@@ -183,10 +193,16 @@ export function getSellingPlansFromDiscountDeliveryOptions(
         options: [information.option],
         category: 'SUBSCRIPTION' as SellingPlanCategory,
         billingPolicy: {
-          recurring: recurringDeliveryAndBillingPolicy,
+          recurring: {
+            ...recurringDeliveryAndBillingPolicy,
+            ...anchors,
+          },
         },
         deliveryPolicy: {
-          recurring: recurringDeliveryAndBillingPolicy,
+          recurring: {
+            ...recurringDeliveryAndBillingPolicy,
+            ...anchors,
+          },
         },
         pricingPolicies:
           discountValue && offerDiscount ? [pricingPolicies] : [],

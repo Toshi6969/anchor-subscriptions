@@ -11,6 +11,18 @@ const DiscountTypeEnum = z.enum(['PERCENTAGE', 'FIXED_AMOUNT', 'PRICE']);
 export const DiscountType = DiscountTypeEnum.enum;
 export type DiscountTypeType = TypeOf<typeof DiscountTypeEnum>;
 
+// Accepts empty string / null / undefined as "not set" (returns undefined),
+// otherwise coerces to a number in [1, 31].
+const anchorDaySchema = z
+  .union([
+    z.literal(''),
+    z.coerce.number().int().min(1).max(31),
+  ])
+  .optional()
+  .transform((v) => (v === '' || v === undefined ? undefined : v)) as z.ZodType<
+  number | undefined
+>;
+
 const discountDeliveryOption = (t: TFunction) =>
   z.object({
     id: z.string(),
@@ -30,6 +42,10 @@ const discountDeliveryOption = (t: TFunction) =>
         message: t('SubscriptionPlanForm.discountValueMaxError'),
       })
       .optional(),
+    // Anchor day for fixed billing/delivery cycle (MONTHDAY, 1-31).
+    // Shopify requires billing and delivery anchors to be identical, so a
+    // single value drives both. Only meaningful when deliveryInterval === MONTH.
+    anchorDay: anchorDaySchema,
   });
 
 export type DiscountDeliveryOption = TypeOf<

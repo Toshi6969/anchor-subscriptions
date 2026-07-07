@@ -82,6 +82,9 @@ export interface DiscountDeliveryOption {
   deliveryFrequency: number;
   deliveryInterval: DeliveryFrequencyIntervalType;
   discountValue?: number;
+  // MONTHDAY anchor (1-31). Only meaningful when deliveryInterval === MONTH.
+  // Applied to both billing and delivery policies (Shopify requires match).
+  anchorDay?: number;
 }
 
 export interface SellingPlan {
@@ -100,9 +103,15 @@ export interface SellingPlanDetails {
   discountValue?: number;
 }
 
+export interface SellingPlanAnchor {
+  day: number;
+  type: 'MONTHDAY' | 'WEEKDAY' | 'YEARDAY';
+}
+
 export interface RecurringPolicy {
   interval: SellingPlanInterval;
   intervalCount: number;
+  anchors?: SellingPlanAnchor[];
 }
 
 export interface DeliveryMethod {

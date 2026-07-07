@@ -234,6 +234,17 @@ function formatSellingPlanGroup(
     const isRecurringPolicy = 'interval' in billingPolicy;
     const interval = isRecurringPolicy ? billingPolicy.interval : '';
     const intervalCount = isRecurringPolicy ? billingPolicy.intervalCount : '';
+    // Extract MONTHDAY anchor. Billing and delivery anchors are always the
+    // same value on our plans (Shopify constraint), so reading billingPolicy
+    // is sufficient.
+    const billingAnchors =
+      isRecurringPolicy && 'anchors' in billingPolicy
+        ? billingPolicy.anchors
+        : undefined;
+    const anchorDay = billingAnchors?.find(
+      (a: any) => a?.type === 'MONTHDAY',
+    )?.day;
+
     const firstPricingPolicy = pricingPolicies[0];
     const hasAdjustment =
       firstPricingPolicy && 'adjustmentValue' in firstPricingPolicy;
@@ -253,6 +264,7 @@ function formatSellingPlanGroup(
       deliveryInterval: interval as DiscountDeliveryOption['deliveryInterval'],
       deliveryFrequency: intervalCount || 0,
       discountValue: discountValue,
+      anchorDay,
     };
   });
 

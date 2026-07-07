@@ -29,6 +29,20 @@ fragment SellingPlanDetails on SellingPlan {
     ... on SellingPlanRecurringDeliveryPolicy {
       interval
       intervalCount
+      anchors {
+        day
+        type
+      }
+    }
+  }
+  billingPolicy {
+    ... on SellingPlanRecurringBillingPolicy {
+      interval
+      intervalCount
+      anchors {
+        day
+        type
+      }
     }
   }
 }

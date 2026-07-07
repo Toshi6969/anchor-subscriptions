@@ -17,9 +17,23 @@ query SellingPlanGroup(
             ... on SellingPlanRecurringBillingPolicy {
               interval
               intervalCount
+              anchors {
+                day
+                type
+              }
             }
             ... on SellingPlanFixedBillingPolicy {
               remainingBalanceChargeTrigger
+            }
+          }
+          deliveryPolicy {
+            ... on SellingPlanRecurringDeliveryPolicy {
+              interval
+              intervalCount
+              anchors {
+                day
+                type
+              }
             }
           }
           pricingPolicies {

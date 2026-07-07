@@ -1,11 +1,15 @@
 import type {GridCellProps, GridProps} from '@shopify/polaris';
-import {BlockStack, Button, Grid, Icon, InlineStack} from '@shopify/polaris';
+import {BlockStack, Button, Grid, Icon, InlineStack, Text} from '@shopify/polaris';
 import {DeleteIcon} from '@shopify/polaris-icons';
 import type {TFunction} from 'i18next';
+import {useFormContext} from '@rvf/remix';
 import {useTranslation} from 'react-i18next';
 import {Select} from '~/components/Select';
 import {TextField} from '~/components/TextField';
-import type {DiscountTypeType} from '~/routes/app.plans.$id/validator';
+import type {
+  DiscountDeliveryOption,
+  DiscountTypeType,
+} from '~/routes/app.plans.$id/validator';
 import {DiscountType} from '~/routes/app.plans.$id/validator';
 import {getSymbolFromCurrency} from '~/utils/helpers/money';
 import {DeliveryFrequencyInterval} from '~/utils/helpers/zod';
@@ -29,6 +33,14 @@ export function DiscountDeliveryOptionLine({
   remove,
 }: DiscountDeliveryOptionLineProps) {
   const {t} = useTranslation('app.plans.details');
+  const form = useFormContext<{
+    discountDeliveryOptions: DiscountDeliveryOption[];
+  }>();
+
+  const currentInterval = form.value(
+    `discountDeliveryOptions[${index}].deliveryInterval`,
+  );
+  const showAnchorDays = currentInterval === DeliveryFrequencyInterval.Month;
 
   const {discountValueFieldLabel, discountValueHelpText} =
     getDiscountValueLabelAndHelptext(t, discountType);
@@ -131,6 +143,29 @@ export function DiscountDeliveryOptionLine({
             </Grid.Cell>
           ) : null}
         </Grid>
+        {showAnchorDays ? (
+          <BlockStack gap="150">
+            <Text as="p" variant="bodySm" tone="subdued">
+              {t('discountDeliveryCard.anchorDayHelpText')}
+            </Text>
+            <Grid
+              columns={{xs: 6, sm: 6, md: 6, lg: 6, xl: 6}}
+              gap={{xs: '0.5rem', sm: '0.5rem', md: '0.5rem', lg: '0.5rem', xl: '0.5rem'}}
+            >
+              <Grid.Cell columnSpan={{xs: 3, sm: 3, md: 3, lg: 3, xl: 3}}>
+                <TextField
+                  label={t('discountDeliveryCard.anchorDay')}
+                  helpText={t('discountDeliveryCard.anchorDayFieldHelpText')}
+                  type="number"
+                  min={1}
+                  max={31}
+                  name={`discountDeliveryOptions[${index}].anchorDay`}
+                  suffix={t('discountDeliveryCard.anchorDaySuffix')}
+                />
+              </Grid.Cell>
+            </Grid>
+          </BlockStack>
+        ) : null}
       </BlockStack>
     </>
   );
