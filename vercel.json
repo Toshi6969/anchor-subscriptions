@@ -1,0 +1,5 @@
+{
+  "framework": "remix",
+  "buildCommand": "pnpm vercel-build",
+  "installCommand": "pnpm install"
+}
