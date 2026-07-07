@@ -4,6 +4,7 @@
   "private": true,
   "scripts": {
     "build": "NODE_ENV=production remix vite:build",
+    "vercel-build": "prisma generate && prisma migrate deploy && NODE_ENV=production remix vite:build",
     "dev": "dotenv -c development pnpm shopify app dev",
     "generate": "shopify app generate",
     "env": "shopify app env",
