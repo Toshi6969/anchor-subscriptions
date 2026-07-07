@@ -2,12 +2,11 @@
 
 client_id = "d4af8ee6ea204e9ac35ec4e03f1c9cdf"
 name = "Anchor Subscriptions"
-application_url = "https://example.com"
+application_url = "https://anchor-subscriptions-bloomdesigning-4670s-projects.vercel.app"
 embedded = true
 
 [build]
 automatically_update_urls_on_dev = true
-include_config_on_deploy = true
 
 [webhooks]
 api_version = "2026-10"
@@ -17,4 +16,4 @@ api_version = "2026-10"
 scopes = "read_all_orders,read_customer_payment_methods,read_customers,read_locales,read_locations,read_orders,read_themes,write_customers,write_metaobject_definitions,write_metaobjects,write_own_subscription_contracts,write_products,write_translations,customer_read_own_subscription_contracts,customer_write_own_subscription_contracts"
 
 [auth]
-redirect_urls = [ "https://example.com/api/auth" ]
+redirect_urls = [ "https://anchor-subscriptions-bloomdesigning-4670s-projects.vercel.app/api/auth" ]
