@@ -63,6 +63,7 @@
     "@shopify/ui-extensions-react": "2025.7.0",
     "@testing-library/user-event": "14.6.1",
     "@types/luxon": "3.6.2",
+    "@vercel/remix": "^2.16.7",
     "classnames": "2.3.2",
     "cross-env": "7.0.3",
     "eslint-plugin-jest-dom": "5.5.0",
