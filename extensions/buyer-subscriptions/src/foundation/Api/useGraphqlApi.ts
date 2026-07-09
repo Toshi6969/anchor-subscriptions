@@ -52,12 +52,28 @@ export function useGraphqlApi<Data, Variables = undefined>(): UseApi<
         return;
       }
 
-      const {data}: {data: Data} = await resp.json();
-      setData(data);
+      const body = (await resp.json()) as {
+        data?: Data;
+        errors?: {message: string; extensions?: Record<string, unknown>}[];
+      };
+
+      if (body.errors && body.errors.length > 0) {
+        const message = body.errors.map((e) => e.message).join('; ');
+        console.error(
+          '[buyer-subscriptions] GraphQL errors:',
+          body.errors,
+        );
+        setError(new Error(message));
+        setLoading(false);
+        setFirstFetchComplete(true);
+        return;
+      }
+
+      setData(body.data);
       setLoading(false);
       setFirstFetchComplete(true);
 
-      return data;
+      return body.data;
     },
     [],
   );
