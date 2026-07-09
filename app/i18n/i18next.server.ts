@@ -1,9 +1,24 @@
 import ShopifyFormat from '@shopify/i18next-shopify';
-import Backend from 'i18next-fs-backend';
-import {resolve} from 'node:path';
 import {RemixI18Next} from 'remix-i18next/server';
 
 import i18nextOptions from './i18nextOptions';
+
+// Preload all locale JSON files at build time. On Vercel serverless the
+// public/ folder is not reliably readable via i18next-fs-backend, so we
+// embed the resources directly into the function bundle.
+const localeModules = import.meta.glob<Record<string, unknown>>(
+  '../../public/locales/*/*.json',
+  {eager: true, import: 'default'},
+);
+
+const resources: Record<string, Record<string, Record<string, unknown>>> = {};
+for (const [path, mod] of Object.entries(localeModules)) {
+  const match = path.match(/locales\/([^/]+)\/([^/]+)\.json$/);
+  if (!match) continue;
+  const [, lng, ns] = match;
+  if (!resources[lng]) resources[lng] = {};
+  resources[lng][ns] = mod as Record<string, unknown>;
+}
 
 const i18next = new RemixI18Next({
   detection: {
@@ -14,11 +29,9 @@ const i18next = new RemixI18Next({
   },
   i18next: {
     ...i18nextOptions,
-    backend: {
-      loadPath: resolve('./public/locales/{{lng}}/{{ns}}.json'),
-    },
+    resources,
   },
-  plugins: [Backend, ShopifyFormat.default ?? ShopifyFormat],
+  plugins: [ShopifyFormat.default ?? ShopifyFormat],
 });
 
 export default i18next;
