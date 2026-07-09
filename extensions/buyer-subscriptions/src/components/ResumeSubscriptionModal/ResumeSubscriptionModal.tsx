@@ -9,6 +9,7 @@ import {
   BlockStack,
 } from '@shopify/ui-extensions-react/customer-account';
 import type {Money} from 'types';
+import {formatMoney} from 'utilities';
 import {useFormatDate} from 'utilities/hooks/useFormatDate';
 
 import ActivateSubscriptionContractMutation from './graphql/ActivateSubscriptionMutation';
@@ -116,10 +117,12 @@ export function ResumeSubscriptionModal({
             ? ` ${i18n.translate(
                 'resumeSubscriptionModal.descriptionPriceChanged',
                 {
-                  price: i18n.formatCurrency(Number(nextOrderPrice.amount), {
-                    currency: nextOrderPrice.currencyCode,
-                    currencyDisplay: 'narrowSymbol',
-                  }),
+                  price: formatMoney(
+                    i18n.formatCurrency,
+                    Number(nextOrderPrice.amount),
+                    nextOrderPrice.currencyCode,
+                    {currencyDisplay: 'narrowSymbol'},
+                  ),
                 },
               )}`
             : ''}

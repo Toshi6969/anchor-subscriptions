@@ -6,6 +6,7 @@ import {
 } from '@shopify/ui-extensions-react/customer-account';
 import {useExtensionApi} from 'foundation/Api';
 import type {SubscriptionLine} from 'types';
+import {formatMoney} from 'utilities';
 
 export function SubscriptionLineItem({line}: {line: SubscriptionLine}) {
   const {i18n} = useExtensionApi();
@@ -32,8 +33,7 @@ export function SubscriptionLineItem({line}: {line: SubscriptionLine}) {
         {line.quantity > 1 ? (
           <Text size="small" appearance="subdued">
             {i18n.translate('priceSummary.quantity', {
-              quantity: i18n.formatCurrency(currentPrice, {
-                currency,
+              quantity: formatMoney(i18n.formatCurrency, currentPrice, currency, {
                 compactDisplay: 'short',
                 currencyDisplay: 'narrowSymbol',
               }),
@@ -48,17 +48,17 @@ export function SubscriptionLineItem({line}: {line: SubscriptionLine}) {
           appearance={isDiscounted ? 'subdued' : 'base'}
           accessibilityRole={isDiscounted ? 'deletion' : undefined}
         >
-          {i18n.formatCurrency(currentPrice * line.quantity, {
+          {formatMoney(
+            i18n.formatCurrency,
+            currentPrice * line.quantity,
             currency,
-            compactDisplay: 'short',
-            currencyDisplay: 'narrowSymbol',
-          })}
+            {compactDisplay: 'short', currencyDisplay: 'narrowSymbol'},
+          )}
         </Text>
 
         {isDiscounted && (
           <Text>
-            {i18n.formatCurrency(discountedPrice, {
-              currency,
+            {formatMoney(i18n.formatCurrency, discountedPrice, currency, {
               compactDisplay: 'short',
               currencyDisplay: 'narrowSymbol',
             })}

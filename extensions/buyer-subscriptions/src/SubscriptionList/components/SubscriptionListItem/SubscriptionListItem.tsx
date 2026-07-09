@@ -23,7 +23,7 @@ import {useFormatDate} from 'utilities/hooks/useFormatDate';
 import {SubscriptionActions} from './components';
 import {useExtensionApi} from 'foundation/Api';
 import {parseGid} from '@shopify/admin-graphql-api-utilities';
-import {getBillingCycleInfo} from 'utilities';
+import {getBillingCycleInfo, formatMoney} from 'utilities';
 
 export interface SubscriptionListItemProps {
   id: string;
@@ -167,10 +167,12 @@ export function SubscriptionListItem({
               <InlineStack blockAlignment="center">
                 {totalPrice ? (
                   <Heading level={3}>
-                    {i18n.formatCurrency(Number(totalPrice.amount), {
-                      currency: totalPrice.currencyCode,
-                      currencyDisplay: 'narrowSymbol',
-                    })}
+                    {formatMoney(
+                      i18n.formatCurrency,
+                      Number(totalPrice.amount),
+                      totalPrice.currencyCode,
+                      {currencyDisplay: 'narrowSymbol'},
+                    )}
                   </Heading>
                 ) : null}
               </InlineStack>

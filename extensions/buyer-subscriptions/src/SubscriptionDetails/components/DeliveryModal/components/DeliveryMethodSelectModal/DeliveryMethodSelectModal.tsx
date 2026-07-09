@@ -27,6 +27,7 @@ import {
 
 import {InlineAddress} from './components';
 import {useExtensionApi} from 'foundation/Api';
+import {formatMoney} from 'utilities';
 
 interface DeliveryMethodSelectModalProps {
   selectedDeliveryHandle: string;
@@ -111,10 +112,12 @@ export function DeliveryMethodSelectModal({
           <Text appearance="subdued">
             {/* if it doesn't have a price it must be free... */}
             {price && Number(price.amount) !== 0
-              ? i18n.formatCurrency(Number(price.amount), {
-                  currency: price?.currencyCode,
-                  currencyDisplay: 'narrowSymbol',
-                })
+              ? formatMoney(
+                  i18n.formatCurrency,
+                  Number(price.amount),
+                  price.currencyCode,
+                  {currencyDisplay: 'narrowSymbol'},
+                )
               : i18n.translate('deliveryMethodSelectModal.free')}
           </Text>
         </Grid>
