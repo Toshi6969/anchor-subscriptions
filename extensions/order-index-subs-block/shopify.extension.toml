@@ -1,0 +1,14 @@
+api_version = "2025-10"
+
+[[extensions]]
+uid = "b1e29a4a-7d5f-4f6a-9a1c-3f88ab2c1e9d"
+type = "ui_extension"
+name = "Subscription nav card"
+handle = "order-index-subs-block"
+
+[[extensions.targeting]]
+module = "./src/OrderIndexBlock.tsx"
+target = "customer-account.order-index.block.render"
+
+[extensions.capabilities]
+api_access = true

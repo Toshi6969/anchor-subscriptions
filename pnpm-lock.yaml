@@ -357,6 +357,25 @@ importers:
         specifier: 1.0.0
         version: 1.0.0(@types/node@24.0.7)(happy-dom@18.0.1)(jsdom@26.1.0)
 
+  extensions/order-index-subs-block:
+    dependencies:
+      '@preact/signals':
+        specifier: 2.3.x
+        version: 2.3.2(preact@10.10.6)
+      '@shopify/ui-extensions':
+        specifier: 2025.10.x
+        version: 2025.10.0(@preact/signals@2.3.2(preact@10.10.6))(preact@10.10.6)
+      preact:
+        specifier: 10.10.x
+        version: 10.10.6
+    devDependencies:
+      '@testing-library/preact':
+        specifier: 3.2.3
+        version: 3.2.3(preact@10.10.6)
+      vitest:
+        specifier: 1.0.0
+        version: 1.0.0(@types/node@24.0.7)(happy-dom@18.0.1)(jsdom@26.1.0)
+
   extensions/pos-extension:
     dependencies:
       '@preact/signals':
