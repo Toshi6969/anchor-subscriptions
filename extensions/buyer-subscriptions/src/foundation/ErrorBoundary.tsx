@@ -17,14 +17,17 @@ const ErrorContent = ({error}: ErrorContentProps) => {
   const {i18n} = useExtensionApi();
 
   useEffect(() => {
-    if (process.env.NODE_ENV === 'development') {
-      console.error('ErrorBoundary', error);
-    }
+    console.error('[buyer-subscriptions] ErrorBoundary caught:', error);
+    console.error('[buyer-subscriptions] message:', error?.message);
+    console.error('[buyer-subscriptions] stack:', error?.stack);
   }, [error]);
 
   return (
     <BlockStack inlineAlignment="center" spacing="loose">
       <Text>{i18n.translate('errorBoundary.content')}</Text>
+      <Text appearance="subdued">
+        [debug] {error?.name || 'Error'}: {error?.message || 'unknown'}
+      </Text>
     </BlockStack>
   );
 };
