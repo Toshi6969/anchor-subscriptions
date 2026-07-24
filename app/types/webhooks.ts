@@ -46,6 +46,8 @@ export interface SubscriptionContractsCreate {
   origin_order_id: number | null;
   revision_id: number;
   status: SubscriptionContractStatus;
+  next_billing_date?: string;
+  created_at?: string;
 }
 
 export interface SubscriptionBillingAttemptFailure {

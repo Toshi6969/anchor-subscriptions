@@ -2,7 +2,10 @@ import {mockShopifyServer} from '#/test-utils';
 import {faker} from '@faker-js/faker';
 import {composeGid} from '@shopify/admin-graphql-api-utilities';
 import {describe, expect, afterEach, it} from 'vitest';
-import {skipOrResumeBillingCycle} from '../SubscriptionBillingCycleEditService';
+import {
+  skipBillingCycleByDate,
+  skipOrResumeBillingCycle,
+} from '../SubscriptionBillingCycleEditService';
 
 function MOCK_SKIPPED_SUCCESS_RESPONSE() {
   return {
@@ -138,6 +141,62 @@ describe('skipOrResumeBillingCycle', () => {
         subscriptionContractId,
         billingCycleIndex,
         skip,
+      ),
+    ).rejects.toThrowError();
+  });
+});
+
+describe('skipBillingCycleByDate', () => {
+  afterEach(() => {
+    graphQL.mockRestore();
+  });
+
+  const billingCycleDate = '2026-08-20T00:00:00Z';
+
+  it('returns the mutation payload when skip is successful', async () => {
+    mockGraphQL(MOCK_SKIPPED_SUCCESS_RESPONSE());
+
+    const result = await skipBillingCycleByDate(
+      graphQL,
+      subscriptionContractId,
+      billingCycleDate,
+    );
+
+    const mockResponse = MOCK_SKIPPED_SUCCESS_RESPONSE();
+
+    expect(result).toEqual(
+      mockResponse.SubscriptionBillingCycleScheduleEdit.data
+        .subscriptionBillingCycleScheduleEdit,
+    );
+  });
+
+  it('returns the payload with userErrors when Shopify rejects the skip', async () => {
+    mockGraphQL(MOCK_SKIP_FAILED_RESPONSE());
+
+    const result = await skipBillingCycleByDate(
+      graphQL,
+      subscriptionContractId,
+      billingCycleDate,
+    );
+
+    const mockResponse = MOCK_SKIP_FAILED_RESPONSE();
+
+    expect(result).toEqual(
+      mockResponse.SubscriptionBillingCycleScheduleEdit.data
+        .subscriptionBillingCycleScheduleEdit,
+    );
+  });
+
+  it('throws an error if the response is missing data', async () => {
+    mockGraphQL({
+      SubscriptionBillingCycleScheduleEdit: null,
+    });
+
+    await expect(
+      skipBillingCycleByDate(
+        graphQL,
+        subscriptionContractId,
+        billingCycleDate,
       ),
     ).rejects.toThrowError();
   });

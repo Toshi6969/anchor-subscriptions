@@ -25,3 +25,8 @@ export interface TagSubscriptionsOrderPayload {
 export interface SendInventoryFailureEmailParameters {
   frequency: string;
 }
+
+export interface SkipInitialCyclePayload {
+  contractId: string;
+  billingCycleDate: string;
+}
