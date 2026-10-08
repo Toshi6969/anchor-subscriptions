@@ -28,21 +28,23 @@ API 2026-01 以降になるまで、Shopify CLI でアプリの更新をデプ�
 
 buyer-subscriptions の規模: src 配下 109 ファイル・約 8,100 行、`@shopify/ui-extensions-react` を直接 import しているのが 29 ファイル。
 
-## 未確認
+## 未確認 → 回答（2026-10-08、出典は UPGRADE-2026-01-plan.md 1 章）
 
-- 「すべて 2026-01 以降」が条件なら、2025-10 / unstable の拡張も上げる必要があるか
-- 定期課金（Vercel Cron）はこの制限の影響を受けないか（アプリ deploy と別経路のはず）
-- 現在の buyer-subscriptions のバンドルサイズ → 2026-10-08: `dist/buyer-subscriptions.js` は 314,906 バイト（minify 済み、2026-07-09 ビルド）。128KB の約 2.4 倍。dev ビルドか deploy ビルドか、128KB 上限が現行 React 拡張にも適用されるかは未確認
-- Customer Account API のバージョンが `useGraphqlApi.ts` に 2025-01 と直書き。拡張の api_version を 2026-01 に上げた時にこちらも上げる必要があるか
+- 「すべて 2026-01 以降」が条件なら、2025-10 / unstable の拡張も上げる必要があるか → 2025-10 の 4 拡張は必要。unstable の admin 拡張は未確認
+- 定期課金（Vercel Cron）はこの制限の影響を受けないか → 受けない。止まるのは `shopify app deploy` のみ
+- 現在の buyer-subscriptions のバンドルサイズ → minify 後 314,906 バイト、gzip 後 92,142 バイト。上限は圧縮後 128 KB で 2025-10 以降に適用。現行版は適用外、Preact 版は余裕がある見込み
+- Customer Account API のバージョンが `useGraphqlApi.ts` に 2025-01 と直書き → 作り直し時に `extensions/shared/services/customerApi.ts`（2025-10）へ寄せる
 
 ## 進捗
 
 - 手順 1（2026-10-08）: コード側の機能一覧を `docs/buyer-subscriptions-features.md` に書いた。テスト 117 件成功を確認。実画面の確認は、本番ストアには確認に使えるお客様アカウントがないため、手順 3 の開発ストアでの確認に含める（決定 2026-10-08）。チェックリストは同ドキュメントの「10. 実画面での確認」
 
+- 手順 2（2026-10-08）: 移行計画を `docs/UPGRADE-2026-01-plan.md` に書いた。目標は 2026-07、作業は Phase 0〜4、見積もり 5〜7 営業日
+
 ## 次にやること
 
-1. 定期便管理画面の機能を書き出す（一覧、詳細、スキップ、解約、変更など。実画面とコードの両方で）→ コード側は完了。実画面は未実施
-2. 移行計画を立てる（buyer-subscriptions を Polaris web components で作り直す。他の拡張も 2026-01 に揃える）
+1. 定期便管理画面の機能を書き出す（一覧、詳細、スキップ、解約、変更など。実画面とコードの両方で）→ コード側は完了。実画面は手順 3 で
+2. 移行計画を立てる（buyer-subscriptions を Polaris web components で作り直す。他の拡張も 2026-01 に揃える）→ 完了。次は plan の Phase 0 から
 3. 開発ストアで作り直して、1 の全機能を確かめる
 4. 本番 deploy
 
