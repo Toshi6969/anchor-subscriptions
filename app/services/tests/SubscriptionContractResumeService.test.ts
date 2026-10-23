@@ -71,6 +71,8 @@ const {graphQL, mockGraphQL} = mockShopifyServer();
 describe('SubscriptionContractResumeService', () => {
   afterEach(() => {
     graphQL.mockRestore();
+    // 同じ jobs.enqueue への spyOn が次のテストへ履歴を持ち越さないように戻す
+    vi.restoreAllMocks();
   });
   describe('when mutation is successful', () => {
     it('resumes a subscription contract', async () => {

@@ -73,7 +73,10 @@ describe('uploadToStagedTarget', () => {
   beforeEach(() => {
     originalFormData = global.FormData;
     formDataMock = {append: vi.fn()};
-    global.FormData = vi.fn(() => formDataMock) as any;
+    // vitest 4 では arrow 関数の実装を new できないため function 式にする
+    global.FormData = vi.fn(function () {
+      return formDataMock;
+    }) as any;
   });
 
   afterEach(() => {

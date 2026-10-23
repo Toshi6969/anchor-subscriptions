@@ -30,7 +30,8 @@ const tagSubscriptionsOrderWithoutOrderPayload: TagSubscriptionsOrderPayload = {
 
 describe('TagSubscriptionOrderJob#perform', () => {
   afterEach(() => {
-    vi.restoreAllMocks();
+    // vitest 4 の restoreAllMocks は vi.fn の呼び出し履歴を消さないため明示的に消す
+    vi.clearAllMocks();
   });
 
   describe('with recurring order tags', () => {

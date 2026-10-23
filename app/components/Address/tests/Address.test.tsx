@@ -27,10 +27,13 @@ const formatMock = vi.hoisted(() => vi.fn().mockImplementation(mockFormat));
 vi.mock('@shopify/address', async () => ({
   ...(await vi.importActual('@shopify/address')),
   // default export is AddressFormatter
-  default: vi.fn().mockImplementation(() => ({
-    constructor: vi.fn(),
-    format: formatMock,
-  })),
+  // vitest 4 では arrow 関数の実装を new できないため function 式で返す
+  default: vi.fn().mockImplementation(function () {
+    return {
+      constructor: vi.fn(),
+      format: formatMock,
+    };
+  }),
   loadCountries: vi.fn().mockResolvedValue([
     {
       code: 'CA',

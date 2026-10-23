@@ -51,13 +51,14 @@ describe('AfterAuthService', async () => {
         let steps: Array<Function>;
 
         beforeAll(() => {
-          steps = [
-            vi.fn(),
-            vi.fn(async function StepThatFails() {
-              throw new Error('Step failed');
-            }),
-            vi.fn(),
-          ];
+          const stepThatFails = vi.fn(async function StepThatFails() {
+            throw new Error('Step failed');
+          });
+          // vitest 4 の vi.fn は実装の関数名を name に引き継がないため明示する
+          Object.defineProperty(stepThatFails, 'name', {
+            value: 'StepThatFails',
+          });
+          steps = [vi.fn(), stepThatFails, vi.fn()];
           installer = new AfterAuthService(session, admin);
           installer.steps = steps;
         });

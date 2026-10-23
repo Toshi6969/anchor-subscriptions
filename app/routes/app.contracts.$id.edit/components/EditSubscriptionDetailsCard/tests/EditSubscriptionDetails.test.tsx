@@ -31,13 +31,16 @@ const commitMock = vi.hoisted(() => vi.fn().mockResolvedValue(true));
 
 vi.mock('~/models/SubscriptionContractDraft/SubscriptionContractDraft', () => {
   return {
-    SubscriptionContractDraft: vi.fn().mockImplementation(() => ({
-      addLine: addLineMock,
-      removeLine: removeLineMock,
-      updateLine: updateLineMock,
-      update: updateMock,
-      commit: commitMock,
-    })),
+    // vitest 4 では arrow 関数の実装を new できないため function 式で返す
+    SubscriptionContractDraft: vi.fn().mockImplementation(function () {
+      return {
+        addLine: addLineMock,
+        removeLine: removeLineMock,
+        updateLine: updateLineMock,
+        update: updateMock,
+        commit: commitMock,
+      };
+    }),
   };
 });
 
